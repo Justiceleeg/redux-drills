@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { addGuest, removeGuest } from './ducks/guestList';
+import { addGuest, removeGuest, updateGuest } from './ducks/guestList';
 import { connect } from 'react-redux';
 import EditGuest from './components/EditGuest/EditGuest';
 import './App.css';
@@ -84,7 +84,12 @@ class App extends Component {
         </form>
         {
            this.state.edit ?
-                <EditGuest />
+                <EditGuest 
+                hide={this.hideModal}
+                guest={this.state.guestToEdit}
+                guestIndex={this.state.guestIndex}
+                updateGuest={this.props.updateGuest}
+                />
                 : null
         }
       </div>
@@ -98,4 +103,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps,{ addGuest, removeGuest })(App);
+export default connect(mapStateToProps,{ addGuest, removeGuest, updateGuest })(App);

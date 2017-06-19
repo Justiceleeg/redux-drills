@@ -19,6 +19,7 @@ class EditGuest extends Component {
 
   update() {
     // update guest name function
+    this.props.updateGuest(this.props.guestIndex,this.state.text)
     this.props.hide();
   }
 

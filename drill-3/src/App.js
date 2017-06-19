@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+
 import './App.css';
+import { addGuest, removeGuest } from './ducks/guestList';
+
 
 class App extends Component {
   constructor() {
@@ -17,8 +21,9 @@ class App extends Component {
     })
   }
   handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault(); //native html feature
     // add guest function here
+    this.props.addGuest(this.state.text)
     this.setState({
       text: ''
     })
@@ -30,11 +35,14 @@ class App extends Component {
         <h1>DevMountain Hackathon</h1>
         <h3>Guest List:</h3>
         <ul>
-          {{/*??*/}.map( (guest, i) => {
+          {this.props.list.map( (guest, i) => {
             return (
               <div key={i} className="list-item">
                 <li>{guest}</li>
-                <button type="" className="">Remove</button>
+                <button 
+                  type="" 
+                  className=""
+                  onClick={() => this.props.removeGuest(i)}>Remove</button>
               </div>
             )
           })}
@@ -56,5 +64,11 @@ class App extends Component {
 }
 
 // mapStateToProps
+function mapStateToProps(state){
+  return {
+    list: state
+  }
+}
 
 // connect
+export default connect(mapStateToProps, {addGuest, removeGuest})(App)
